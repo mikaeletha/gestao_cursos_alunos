@@ -2,7 +2,8 @@
 
 use Dba\Connection;
 
-require_once 'config/Connection.php.php';
+require_once('../../config/paths.php');
+require_once('../../config/ConnectionDatabase.php');
 
 class BaseModel
 {

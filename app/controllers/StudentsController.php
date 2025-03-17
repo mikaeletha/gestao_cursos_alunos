@@ -10,10 +10,13 @@ class StudentsController
         $this->model = new Student();
     }
 
-
     public function index()
     {
-        $students = $this->model->getAll();
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $perPage = 5;
+        $students = $this->model->getAll($page, $perPage);
+        $total = $this->model->getTotalCount();
+        $totalPages = ceil($total / $perPage);
         include('./app/views/students/index.php');
     }
 

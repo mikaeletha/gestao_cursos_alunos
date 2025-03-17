@@ -11,16 +11,34 @@ class Student
         $this->db = $conn->getConnection();
     }
 
-    public function getAll()
+    public function getAll($page = 1, $perPage = 5)
     {
         try {
-            $sql = "SELECT id, name, birth_date, user_login FROM students ORDER BY name ASC";
+            $offset = ($page - 1) * $perPage;
+            $sql = "SELECT id, name, birth_date, user_login FROM students ORDER BY name ASC LIMIT :limit OFFSET :offset";
             $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':limit', $perPage, PDO::PARAM_INT);
+            $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (Exception $e) {
             error_log("Erro ao buscar alunos: " . $e->getMessage());
             return [];
+        }
+    }
+
+    public function getTotalCount()
+    {
+        try {
+            $sql = "SELECT COUNT(id) AS total FROM students";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $result['total'];
+        } catch (Exception $e) {
+            error_log("Erro ao contar alunos: " . $e->getMessage());
+            return 0;
         }
     }
 

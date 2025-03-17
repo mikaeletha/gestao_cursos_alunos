@@ -12,13 +12,19 @@ class ClassesController
 
     public function index()
     {
-        $classes = $this->model->getAll();
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $perPage = 5;
+        $classes = $this->model->getAll($page, $perPage);
+        $total = $this->model->getTotalCount();
+        $totalPages = ceil($total / $perPage);
         include('./app/views/classes/index.php');
     }
+
     public function create()
     {
         include('./app/views/classes/create_edit.php');
     }
+
     public function store()
     {
         $data = [
@@ -36,6 +42,7 @@ class ClassesController
         header("Location: ../classes");
         exit();
     }
+
     public function edit($id)
     {
         $classe = $this->model->getById($id);

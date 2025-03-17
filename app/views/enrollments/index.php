@@ -45,7 +45,23 @@ if (isset($_SESSION['message'])): ?>
                 </tbody>
             </table>
         </div>
+        <nav>
+            <ul class="pagination justify-content-center">
+                <li class="page-item <?= $page <= 1 ? 'disabled' : ''; ?>">
+                    <a class="page-link" href="?page=<?= $page - 1; ?>">Anterior</a>
+                </li>
 
+                <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                    <li class="page-item <?= $i == $page ? 'active' : ''; ?>">
+                        <a class="page-link" href="?page=<?= $i; ?>"><?= $i; ?></a>
+                    </li>
+                <?php endfor; ?>
+
+                <li class="page-item <?= $page >= $totalPages ? 'disabled' : ''; ?>">
+                    <a class="page-link" href="?page=<?= $page + 1; ?>">Próximo</a>
+                </li>
+            </ul>
+        </nav>
     <?php endif; ?>
 </div>
 

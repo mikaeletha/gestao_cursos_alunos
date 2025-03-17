@@ -14,7 +14,11 @@ class EnrollmentsController
 
     public function index()
     {
-        $enrollments = $this->model->getAll();
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $perPage = 5;
+        $enrollments = $this->model->getAll($page, $perPage);
+        $total = $this->model->getTotalCount();
+        $totalPages = ceil($total / $perPage);
         include('./app/views/enrollments/index.php');
     }
 

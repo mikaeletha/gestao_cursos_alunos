@@ -22,7 +22,6 @@ if (isset($_SESSION['message'])): ?>
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Nome</th>
                     <th>Tipo</th>
                     <th>Ações</th>
@@ -31,11 +30,9 @@ if (isset($_SESSION['message'])): ?>
             <tbody>
                 <?php foreach ($classes as $classe): ?>
                     <tr>
-                        <td><?php echo $classe['id']; ?></td>
                         <td><?php echo $classe['name']; ?></td>
                         <td><?php echo $classe['type']; ?></td>
                         <td>
-                            <a href="view.php?id=<?php echo $classe['id']; ?>" class="btn btn-info btn-sm">Ver</a>
                             <a href="classes/edit?id=<?php echo $classe['id']; ?>" class="btn btn-warning btn-sm">Editar</a>
                             <a href="classes/destroy?id=<?php echo $classe['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
 
@@ -48,6 +45,5 @@ if (isset($_SESSION['message'])): ?>
 </div>
 
 <?php
-// Incluir o footer
 include('./app/views/includes/footer.php');
 ?>

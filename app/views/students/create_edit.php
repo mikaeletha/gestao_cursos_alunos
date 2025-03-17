@@ -1,11 +1,7 @@
 <?php
-// $pageTitle = "Cadastrar Aluno";
 $pageTitle = isset($student) ? "Editar Aluno" : "Cadastrar Aluno";
 include_once('./app/views/includes/header.php');
-
-// ??
 $isEditing = isset($student);
-// $actionUrl = $isEditing ? "update/{$student['id']}" : "store";
 ?>
 
 <?php if (isset($_GET['error'])): ?>
@@ -22,7 +18,7 @@ $isEditing = isset($student);
 
 <div class="container mt-5">
     <h2><?= $isEditing ? "Editar Aluno" : "Cadastrar Aluno"; ?></h2>
-  
+
     <form method="POST" action="<?= isset($student) ? "update" : "store"; ?>">
         <?php if ($isEditing): ?>
             <input type="hidden" name="id" value="<?= $student['id']; ?>">
@@ -44,15 +40,11 @@ $isEditing = isset($student);
             <input type="text" class="form-control" id="user_login" name="user_login"
                 value="<?= $isEditing ? htmlspecialchars($student['user_login']) : ''; ?>" required>
         </div>
-
-        <?php if (isset($student)): ?>
-            <input type="hidden" name="id" value="<?= htmlspecialchars($student['id']); ?>">
-        <?php endif; ?>
-
-
         <button type="submit" class="btn btn-primary"><?= $isEditing ? "Atualizar" : "Cadastrar"; ?></button>
         <a href="/gestao_cursos_alunos/students" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>
 
-<?php include('./app/views/includes/footer.php'); ?>
+<?php
+include('./app/views/includes/footer.php');
+?>

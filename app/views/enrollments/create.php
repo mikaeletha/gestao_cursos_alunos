@@ -18,7 +18,6 @@ include_once('./app/views/includes/header.php');
                 <?php endforeach; ?>
             </select>
         </div>
-
         <div class="mb-3">
             <label for="class_id" class="form-label">Turma</label>
             <select class="form-select" id="class_id" name="class_id" required>
@@ -30,7 +29,6 @@ include_once('./app/views/includes/header.php');
                 <?php endforeach; ?>
             </select>
         </div>
-
         <button type="submit" class="btn btn-primary">Cadastrar Matrícula</button>
         <a href="/gestao_cursos_alunos/enrollments" class="btn btn-secondary">Cancelar</a>
     </form>

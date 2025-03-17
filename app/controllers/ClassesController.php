@@ -27,15 +27,6 @@ class ClassesController
             'type' => $_POST['type']
         ];
 
-        // if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        //     if ($this->model->existsByNameAndType($data['name'], $data['type'])) {
-        //         $this->setMessage('danger','Erro ao turma aluno. Tente novamente.');
-
-        //         header("Location: ../students");
-        //         exit();
-        //     }
-        // }
-
         if ($this->model->create($data)) {
             $this->setMessage('success','Turma casdrada com sucesso!');
         } else {

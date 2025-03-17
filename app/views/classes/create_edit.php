@@ -5,16 +5,13 @@ include_once('./app/views/includes/header.php');
 $isEditing = isset($classe);
 ?>
 
-<?php if (isset($_GET['error'])): ?>
-    <div class="alert alert-danger" role="alert">
-        <?php
-        $errorMessage = 'Erro ao cadastrar turma.';
-        if ($_GET['error'] == 'duplicate') {
-            $errorMessage = 'Já existe um turma com o mesmo nome e login. Por favor, escolha outro nome ou login.';
-        }
-        echo $errorMessage;
-        ?>
+<?php
+if (isset($_SESSION['message'])): ?>
+    <div class="alert alert-<?= $_SESSION['message']['type']; ?>" role="alert">
+        <?= $_SESSION['message']['text']; ?>
     </div>
+    <?php unset($_SESSION['message']);
+    ?>
 <?php endif; ?>
 
 <div class="container mt-5">
@@ -57,4 +54,6 @@ $isEditing = isset($classe);
     </form>
 </div>
 
-<?php include('./app/views/includes/footer.php'); ?>
+<?php
+include('./app/views/includes/footer.php');
+?>

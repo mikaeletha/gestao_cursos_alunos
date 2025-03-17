@@ -1,16 +1,14 @@
 <?php
 
-// Carregar os controladores
 require_once('./app/controllers/ClassesController.php');
 require_once('./app/controllers/EnrollmentsController.php');
 require_once('./app/controllers/StudentsController.php');
 
-// Função para gerenciar o roteamento
 function handleRoute($url)
 {
     $id = $_GET['id'] ?? null;
     switch ($url) {
-    //STUDENTS
+        //STUDENTS
         case '':
         case 'students':
             $controller = new StudentsController();
@@ -35,10 +33,10 @@ function handleRoute($url)
                 echo "ID do aluno não fornecido.";
             }
             break;
-        
+
         case 'students/update':
-                $controller = new StudentsController();
-                $controller->update();           
+            $controller = new StudentsController();
+            $controller->update();
             break;
 
         case 'students/destroy':
@@ -50,7 +48,7 @@ function handleRoute($url)
             }
             break;
 
-    // CLASSES
+        // CLASSES
         case 'classes':
             $controller = new ClassesController();
             $controller->index();
@@ -74,10 +72,10 @@ function handleRoute($url)
                 echo "ID da turma não fornecido.";
             }
             break;
-        
+
         case 'classes/update':
-                $controller = new ClassesController();
-                $controller->update();           
+            $controller = new ClassesController();
+            $controller->update();
             break;
 
         case 'classes/destroy':
@@ -105,10 +103,6 @@ function handleRoute($url)
             $controller->store();
             break;
 
-        // default:
-        //     // Se a URL não corresponder a nenhum caso, mostramos uma página de erro
-        //     echo "Página não encontrada!";
-        //     break;
         default:
             header("HTTP/1.0 404 Not Found");
             echo "Erro 404 - Página não encontrada!";

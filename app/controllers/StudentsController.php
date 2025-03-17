@@ -29,27 +29,10 @@ class StudentsController
             'user_login' => $_POST['user_login']
         ];
 
-        // if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        //     // Verifica se já existe um aluno com o mesmo nome ou login
-        //     if ($this->model->existsByNameOrLogin($data['name'], $data['user_login'])) {
-        //         header("Location: ?error=duplicate");
-        //         exit();
-        //     }
-
-        // $this->model->create($data);
-
-        // if ($this->model->create($data)) {
-        //     header("Location: ../students?success=1");
-        //     exit();
-        // } else {
-        //     header("Location: ../students?error=1");
-        //     exit();
-        // }
-
         if ($this->model->create($data)) {
-            $_SESSION['message'] = ['type' => 'success', 'text' => 'Aluno casdrado com sucesso!'];
+            $this->setMessage('success', 'Aluno casdrado com sucesso!');
         } else {
-            $_SESSION['message'] = ['type' => 'danger', 'text' => 'Erro ao cadastrar aluno. Tente novamente.'];
+            $this->setMessage('danger', 'Erro ao cadastrar aluno. Tente novamente.');
         }
 
         header("Location: ../students");
@@ -76,9 +59,9 @@ class StudentsController
         ];
 
         if ($this->model->update($id, $data)) {
-            $_SESSION['message'] = ['type' => 'success', 'text' => 'Aluno atualizado com sucesso!'];
+            $this->setMessage('success', 'Aluno atualizado com sucesso!');
         } else {
-            $_SESSION['message'] = ['type' => 'danger', 'text' => 'Erro ao atualizar aluno. Tente novamente.'];
+            $this->setMessage('danger', 'Erro ao atualizar aluno. Tente novamente.');
         }
 
         header("Location: ../students");
@@ -86,7 +69,6 @@ class StudentsController
     }
     public function destroy($id)
     {
-        $this->model->delete($id);
         if ($this->model->delete($id)) {
             header("Location: ../students?success=delete");
             exit();
@@ -94,5 +76,10 @@ class StudentsController
             header("Location: ../students?error=delete");
             exit();
         }
+    }
+
+    public function setMessage($type, $text)
+    {
+        $_SESSION['message'] = ['type' => $type, 'text' => $text];
     }
 }

@@ -56,6 +56,5 @@ if (isset($_SESSION['message'])): ?>
 </div>
 
 <?php
-// Incluir o footer
 include('./app/views/includes/footer.php');
 ?>

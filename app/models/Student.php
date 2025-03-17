@@ -41,7 +41,7 @@ class Student
     public function create($data)
     {
         if ($this->existsByNameOrLogin($data['name'], $data['user_login'])) {
-            return false; // Já existe um aluno com esse nome ou login
+            return false;
         }
 
         try {
@@ -109,4 +109,3 @@ class Student
         return $stmt->fetchColumn() > 0;
     }
 }
-?>

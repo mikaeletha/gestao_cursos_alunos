@@ -60,7 +60,7 @@ class Student
     public function update($id, $data)
     {
         if ($this->existsByNameOrLogin($data['name'], $data['user_login'], $id)) {
-            return false; // Nome ou login já está em uso
+            return false;
         }
 
         try {

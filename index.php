@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once 'app/config/Routes.php';
 
 $url = isset($_GET['url']) ? $_GET['url'] : '';

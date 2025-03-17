@@ -19,7 +19,7 @@ class StudentsController
 
     public function create()
     {
-        require_once './app/views/students/create.php';
+        require_once './app/views/students/create_edit.php';
     }
     public function store()
     {
@@ -32,23 +32,58 @@ class StudentsController
         // if ($_SERVER["REQUEST_METHOD"] == "POST") {
         //     // Verifica se já existe um aluno com o mesmo nome ou login
         //     if ($this->model->existsByNameOrLogin($data['name'], $data['user_login'])) {
-        //         header("Location: ../views/user_create.php?error=duplicate");
+        //         header("Location: ?error=duplicate");
         //         exit();
         //     }
 
-            // $this->model->create($data);
+        // $this->model->create($data);
 
-            if ($this->model->create($data)) {
-                header("Location: ../students?success=1");
-                exit();
-            } else {
-                header("Location: ../students?error=1");
-                exit();
-            }
+        // if ($this->model->create($data)) {
+        //     header("Location: ../students?success=1");
+        //     exit();
+        // } else {
+        //     header("Location: ../students?error=1");
+        //     exit();
+        // }
+
+        if ($this->model->create($data)) {
+            $_SESSION['message'] = ['type' => 'success', 'text' => 'Aluno casdrado com sucesso!'];
+        } else {
+            $_SESSION['message'] = ['type' => 'danger', 'text' => 'Erro ao cadastrar aluno. Tente novamente.'];
+        }
+
+        header("Location: ../students");
+        exit();
     }
 
-    public function edit($id) {}
-    public function update($id) {}
+    public function edit($id)
+    {
+        $student = $this->model->getById($id);
+
+        if ($student) {
+            require_once './app/views/students/create_edit.php';
+        } else {
+            echo "Aluno não encontrado.";
+        }
+    }
+    public function update()
+    {
+        $id = $_POST['id'];
+        $data = [
+            'name' => $_POST['name'],
+            'birth_date' => date('Y-m-d', strtotime($_POST['birth_date'])),
+            'user_login' => $_POST['user_login']
+        ];
+
+        if ($this->model->update($id, $data)) {
+            $_SESSION['message'] = ['type' => 'success', 'text' => 'Aluno atualizado com sucesso!'];
+        } else {
+            $_SESSION['message'] = ['type' => 'danger', 'text' => 'Erro ao atualizar aluno. Tente novamente.'];
+        }
+
+        header("Location: ../students");
+        exit();
+    }
     public function destroy($id)
     {
         $this->model->delete($id);

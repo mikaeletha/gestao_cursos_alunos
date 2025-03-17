@@ -1,29 +1,21 @@
 <?php
 $pageTitle = "Alunos";
 include_once('./app/views/includes/header.php');
+?>
 
-if (isset($_GET['success'])):
-    if ($_GET['success'] == 1): ?>
-        <div class="alert alert-success" role="alert">
-            Aluno cadastrado com sucesso!
-        </div>
-    <?php elseif ($_GET['success'] == 'delete'): ?>
-        <div class="alert alert-success" role="alert">
-            Aluno excluído com sucesso!
-        </div>
-    <?php endif; 
-endif;
-
-if (isset($_GET['error']) && $_GET['error'] == 'delete'): ?>
-    <div class="alert alert-danger" role="alert">
-        Ocorreu um erro ao excluir o aluno. Tente novamente.
+<?php
+if (isset($_SESSION['message'])): ?>
+    <div class="alert alert-<?= $_SESSION['message']['type']; ?>" role="alert">
+        <?= $_SESSION['message']['text']; ?>
     </div>
+    <?php unset($_SESSION['message']); // Remove a mensagem após exibir 
+    ?>
 <?php endif; ?>
 
 <div class="container mt-5">
     <h2>Lista de Alunos</h2>
     <a href="students/create" class="btn btn-success mb-3">Cadastrar Novo Aluno</a>
-    
+
     <?php if (empty($students)): ?>
         <p>Nenhum aluno encontrado.</p>
     <?php else: ?>
@@ -47,7 +39,7 @@ if (isset($_GET['error']) && $_GET['error'] == 'delete'): ?>
                         <td><?php echo $student['user_login']; ?></td>
                         <td>
                             <a href="view.php?id=<?php echo $student['id']; ?>" class="btn btn-info btn-sm">Ver</a>
-                            <a href="edit.php?id=<?php echo $student['id']; ?>" class="btn btn-warning btn-sm">Editar</a>
+                            <a href="students/edit?id=<?php echo $student['id']; ?>" class="btn btn-warning btn-sm">Editar</a>
                             <!-- <a href="delete.php?id=<?php echo $student['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a> -->
                             <a href="students/destroy?id=<?php echo $student['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
 

@@ -26,15 +26,25 @@ function handleRoute($url)
             $controller->store();
             break;
 
-        case (preg_match('/students\/edit\/(\d+)/', $url, $matches) ? true : false):
-            $controller = new StudentsController();
-            $controller->edit($matches[1]);
+        case 'students/edit':
+            if ($id) {
+                $controller = new StudentsController();
+                $controller->edit($id);
+            } else {
+                echo "ID do aluno não fornecido.";
+            }
+            break;
+        
+        case 'students/update':
+                $controller = new StudentsController();
+                $controller->update();
+           
             break;
 
-        case (preg_match('/students\/update\/(\d+)/', $url, $matches) ? true : false):
-            $controller = new StudentsController();
-            $controller->update($matches[1]);
-            break;
+        // case (preg_match('/students\/update\/(\d+)/', $url, $matches) ? true : false):
+        //     $controller = new StudentsController();
+        //     $controller->update($matches[1]);
+        //     break;
 
         case 'students/destroy':
             if ($id) {

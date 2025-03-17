@@ -19,8 +19,8 @@ if (isset($_SESSION['message'])): ?>
     <?php if (empty($students)): ?>
         <p>Nenhum aluno encontrado.</p>
     <?php else: ?>
-        <table class="table table-bordered">
-            <thead>
+        <table class="table rounded-2 overflow-hidden table-bordered table-hover text-center">
+            <thead class="table-secondary">
                 <tr>
                     <th>Nome</th>
                     <th>Data de Nascimento</th>
@@ -31,13 +31,12 @@ if (isset($_SESSION['message'])): ?>
             <tbody>
                 <?php foreach ($students as $student): ?>
                     <tr>
-                        <td><?php echo $student['name']; ?></td>
-                        <td><?php echo $student['birth_date']; ?></td>
-                        <td><?php echo $student['user_login']; ?></td>
+                        <td><?php echo ucwords(strtolower($student['name'])); ?></td>
+                        <td><?php echo date('d/m/Y', strtotime($student['birth_date'])); ?></td>
+                        <td><?php echo strtoupper($student['user_login']); ?></td>
                         <td>
                             <a href="students/edit?id=<?php echo $student['id']; ?>" class="btn btn-warning btn-sm">Editar</a>
                             <a href="students/destroy?id=<?php echo $student['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
-
                         </td>
                     </tr>
                 <?php endforeach; ?>

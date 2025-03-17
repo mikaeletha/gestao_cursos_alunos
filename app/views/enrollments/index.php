@@ -20,17 +20,14 @@ if (isset($_SESSION['message'])): ?>
         <p>Nenhum aluno encontrado.</p>
     <?php else: ?>
         <div class="container mt-4">
-            <table class="table table-bordered table-striped text-center">
-                <thead class="table-dark">
+            <table class="table rounded-2 overflow-hidden table-bordered table-hover text-center">
+                <thead class="table-secondary">
                     <tr>
-                        <th rowspan="2" class="align-middle">Matrícula</th>
-                        <th colspan="4">Turma</th>
+                        <th colspan="2">Turma</th>
                         <th colspan="2">Aluno</th>
                     </tr>
                     <tr>
-                        <th>ID</th>
                         <th>Nome</th>
-                        <th>Descrição</th>
                         <th>Tipo</th>
                         <th>ID</th>
                         <th>Nome</th>
@@ -39,13 +36,10 @@ if (isset($_SESSION['message'])): ?>
                 <tbody>
                     <?php foreach ($enrollments as $enrollment): ?>
                         <tr>
-                            <td><?= htmlspecialchars($enrollment['enrollment_id']) ?></td>
-                            <td><?= htmlspecialchars($enrollment['class_id']) ?></td>
-                            <td><?= htmlspecialchars($enrollment['class_name']) ?></td>
-                            <td><?= htmlspecialchars($enrollment['class_description']) ?></td>
-                            <td><?= htmlspecialchars($enrollment['class_type']) ?></td>
+                            <td><?= ucwords(strtolower(htmlspecialchars($enrollment['class_name']))) ?></td>
+                            <td><?= strtoupper(htmlspecialchars($enrollment['class_type'])) ?></td>
                             <td><?= htmlspecialchars($enrollment['student_id']) ?></td>
-                            <td><?= htmlspecialchars($enrollment['student_name']) ?></td>
+                            <td><?= ucwords(strtolower(htmlspecialchars($enrollment['student_name']))) ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

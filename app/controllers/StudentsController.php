@@ -70,12 +70,13 @@ class StudentsController
     public function destroy($id)
     {
         if ($this->model->delete($id)) {
-            header("Location: ../students?success=delete");
-            exit();
+            $this->setMessage('success', 'Aluno deletado com sucesso!');
         } else {
-            header("Location: ../students?error=delete");
-            exit();
+            $this->setMessage('danger', 'Erro ao deletar aluno. Tente novamente.');
         }
+
+        header("Location: ../students");
+        exit();
     }
 
     public function setMessage($type, $text)

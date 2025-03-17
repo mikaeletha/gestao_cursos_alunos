@@ -10,6 +10,7 @@ function handleRoute($url)
 {
     $id = $_GET['id'] ?? null;
     switch ($url) {
+    //STUDENTS
         case '':
         case 'students':
             $controller = new StudentsController();
@@ -41,11 +42,6 @@ function handleRoute($url)
            
             break;
 
-        // case (preg_match('/students\/update\/(\d+)/', $url, $matches) ? true : false):
-        //     $controller = new StudentsController();
-        //     $controller->update($matches[1]);
-        //     break;
-
         case 'students/destroy':
             if ($id) {
                 $controller = new StudentsController();
@@ -54,23 +50,21 @@ function handleRoute($url)
                 echo "ID do aluno não fornecido.";
             }
             break;
+    // CLASSES
+        case 'classes':
+            $controller = new ClassesController();
+            $controller->index();
+            break;
 
+        case 'classes/create':
+            $controller = new ClassesController();
+            $controller->create();
+            break;
 
-
-        // case 'classes':
-        //     $controller = new ClassesController();
-        //     $controller->index();
-        //     break;
-
-        // case 'classes/create':
-        //     $controller = new ClassesController();
-        //     $controller->create();
-        //     break;
-
-        // case 'classes/store':
-        //     $controller = new ClassesController();
-        //     $controller->store();
-        //     break;
+        case 'classes/store':
+            $controller = new ClassesController();
+            $controller->store();
+            break;
 
         // case 'enrollments':
         //     $controller = new EnrollmentsController();

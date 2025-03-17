@@ -14,12 +14,12 @@ class Classe
     public function getAll()
     {
         try {
-            $sql = "SELECT id, name, birth_date, user_login FROM students ORDER BY name ASC";
+            $sql = "SELECT id, name, description, type FROM classes ORDER BY name ASC";
             $stmt = $this->db->prepare($sql);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (Exception $e) {
-            error_log("Erro ao buscar alunos: " . $e->getMessage());
+            error_log("Erro ao buscar turmas: " . $e->getMessage());
             return [];
         }
     }
@@ -27,52 +27,52 @@ class Classe
     public function getById($id)
     {
         try {
-            $sql = "SELECT id, name, birth_date, user_login FROM students WHERE id = :id";
+            $sql = "SELECT id, name, description, type FROM classes WHERE id = :id";
             $stmt = $this->db->prepare($sql);
             $stmt->bindValue(':id', $id, PDO::PARAM_INT);
             $stmt->execute();
             return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (Exception $e) {
-            error_log("Erro ao buscar aluno por ID: " . $e->getMessage());
+            error_log("Erro ao buscar turma por ID: " . $e->getMessage());
             return null;
         }
     }
 
     public function create($data)
     {
-        if ($this->existsByNameOrLogin($data['name'], $data['user_login'])) {
-            return false; // Já existe um aluno com esse nome ou login
+        if ($this->existsByNameAndType($data['name'], $data['type'])) {
+            return false;
         }
 
         try {
-            $sql = "INSERT INTO students (name, birth_date, user_login) VALUES (:name, :birth_date, :user_login)";
+            $sql = "INSERT INTO classes (name, description, type) VALUES (:name, :description, :type)";
             $stmt = $this->db->prepare($sql);
             $stmt->bindValue(':name', $data['name'], PDO::PARAM_STR);
-            $stmt->bindValue(':birth_date', $data['birth_date'], PDO::PARAM_STR);
-            $stmt->bindValue(':user_login', $data['user_login'], PDO::PARAM_STR);
+            $stmt->bindValue(':description', $data['description'], PDO::PARAM_STR);
+            $stmt->bindValue(':type', $data['type'], PDO::PARAM_STR);
             return $stmt->execute();
         } catch (Exception $e) {
-            error_log("Erro ao criar aluno: " . $e->getMessage());
+            error_log("Erro ao criar turma: " . $e->getMessage());
             return false;
         }
     }
 
     public function update($id, $data)
     {
-        if ($this->existsByNameOrLogin($data['name'], $data['user_login'], $id)) {
-            return false; // Nome ou login já está em uso
+        if ($this->existsByNameAndType($data['name'], $data['type'], $id)) {
+            return false;
         }
 
         try {
-            $sql = "UPDATE students SET name = :name, birth_date = :birth_date, user_login = :user_login WHERE id = :id";
+            $sql = "UPDATE classes SET name = :name, description = :description, type = :type WHERE id = :id";
             $stmt = $this->db->prepare($sql);
             $stmt->bindValue(':name', $data['name'], PDO::PARAM_STR);
-            $stmt->bindValue(':birth_date', $data['birth_date'], PDO::PARAM_STR);
-            $stmt->bindValue(':user_login', $data['user_login'], PDO::PARAM_STR);
+            $stmt->bindValue(':description', $data['description'], PDO::PARAM_STR);
+            $stmt->bindValue(':type', $data['type'], PDO::PARAM_STR);
             $stmt->bindValue(':id', $id, PDO::PARAM_INT);
             return $stmt->execute();
         } catch (Exception $e) {
-            error_log("Erro ao atualizar aluno: " . $e->getMessage());
+            error_log("Erro ao atualizar turma: " . $e->getMessage());
             return false;
         }
     }
@@ -80,19 +80,19 @@ class Classe
     public function delete($id)
     {
         try {
-            $sql = "DELETE FROM students WHERE id = :id";
+            $sql = "DELETE FROM classes WHERE id = :id";
             $stmt = $this->db->prepare($sql);
             $stmt->bindValue(':id', $id, PDO::PARAM_INT);
             return $stmt->execute();
         } catch (Exception $e) {
-            error_log("Erro ao excluir aluno: " . $e->getMessage());
+            error_log("Erro ao excluir turma: " . $e->getMessage());
             return false;
         }
     }
 
-    private function existsByNameOrLogin($name, $user_login, $id = null)
+    private function existsByNameAndType($name, $type, $id = null)
     {
-        $sql = "SELECT COUNT(*) FROM students WHERE (name = :name OR user_login = :user_login)";
+        $sql = "SELECT COUNT(*) FROM classes WHERE (name = :name and type = :type)";
 
         if ($id) {
             $sql .= " AND id != :id";
@@ -100,7 +100,7 @@ class Classe
 
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':name', $name, PDO::PARAM_STR);
-        $stmt->bindParam(':user_login', $user_login, PDO::PARAM_STR);
+        $stmt->bindParam(':type', $type, PDO::PARAM_STR);
         if ($id) {
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         }
@@ -109,4 +109,3 @@ class Classe
         return $stmt->fetchColumn() > 0;
     }
 }
-?>

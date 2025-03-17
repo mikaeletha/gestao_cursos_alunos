@@ -22,7 +22,7 @@
                         <a class="nav-link" href="/">Alunos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Turmas</a>
+                        <a class="nav-link" href="classes">Turmas</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Matrícula</a>

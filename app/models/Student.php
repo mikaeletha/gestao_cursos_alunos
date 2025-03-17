@@ -11,16 +11,52 @@ class Student
         $this->db = $conn->getConnection();
     }
 
-    public function getAll($page = 1, $perPage = 5)
+    // public function getAll($page = 1, $perPage = 5)
+    // {
+    //     try {
+    //         $offset = ($page - 1) * $perPage;
+    //         $sql = "SELECT id, name, birth_date, user_login FROM students ORDER BY name ASC LIMIT :limit OFFSET :offset";
+    //         $stmt = $this->db->prepare($sql);
+    //         $stmt->bindParam(':limit', $perPage, PDO::PARAM_INT);
+    //         $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+
+    //         $stmt->execute();
+    //         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    //     } catch (Exception $e) {
+    //         error_log("Erro ao buscar alunos: " . $e->getMessage());
+    //         return [];
+    //     }
+    // }
+
+    // public function getTotalCount()
+    // {
+    //     try {
+    //         $sql = "SELECT COUNT(id) AS total FROM students";
+    //         $stmt = $this->db->prepare($sql);
+    //         $stmt->execute();
+    //         $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    //         return $result['total'];
+    //     } catch (Exception $e) {
+    //         error_log("Erro ao contar alunos: " . $e->getMessage());
+    //         return 0;
+    //     }
+    // }
+
+    public function getAll($page, $perPage, $search = '')
     {
         try {
             $offset = ($page - 1) * $perPage;
-            $sql = "SELECT id, name, birth_date, user_login FROM students ORDER BY name ASC LIMIT :limit OFFSET :offset";
-            $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(':limit', $perPage, PDO::PARAM_INT);
-            $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+            $sql = "SELECT id, name, birth_date, user_login FROM students 
+                WHERE name LIKE :search 
+                ORDER BY name ASC 
+                LIMIT :offset, :perPage";
 
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindValue(':search', '%' . $search . '%');
+            $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+            $stmt->bindValue(':perPage', $perPage, PDO::PARAM_INT);
             $stmt->execute();
+
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (Exception $e) {
             error_log("Erro ao buscar alunos: " . $e->getMessage());
@@ -28,14 +64,15 @@ class Student
         }
     }
 
-    public function getTotalCount()
+    public function getTotalCount($search = '')
     {
         try {
-            $sql = "SELECT COUNT(id) AS total FROM students";
+            $sql = "SELECT COUNT(*) FROM students WHERE name LIKE :search";
             $stmt = $this->db->prepare($sql);
+            $stmt->bindValue(':search', '%' . $search . '%');
             $stmt->execute();
-            $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $result['total'];
+
+            return $stmt->fetchColumn();
         } catch (Exception $e) {
             error_log("Erro ao contar alunos: " . $e->getMessage());
             return 0;

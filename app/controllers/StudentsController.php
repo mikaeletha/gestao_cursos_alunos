@@ -10,16 +10,28 @@ class StudentsController
         $this->model = new Student();
     }
 
+    // public function index()
+    // {
+    //     $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+    //     $perPage = 5;
+    //     $students = $this->model->getAll($page, $perPage);
+    //     $total = $this->model->getTotalCount();
+    //     $totalPages = ceil($total / $perPage);
+    //     include('./app/views/students/index.php');
+    // }
     public function index()
     {
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
         $perPage = 5;
-        $students = $this->model->getAll($page, $perPage);
-        $total = $this->model->getTotalCount();
+        $search = isset($_GET['search']) ? $_GET['search'] : '';
+    
+        $students = $this->model->getAll($page, $perPage, $search);
+        $total = $this->model->getTotalCount($search);
         $totalPages = ceil($total / $perPage);
+    
         include('./app/views/students/index.php');
     }
-
+    
     public function create()
     {
         require_once './app/views/students/create_edit.php';

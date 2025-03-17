@@ -16,6 +16,16 @@ if (isset($_SESSION['message'])): ?>
     <h2>Lista de Alunos</h2>
     <a href="students/create" class="btn btn-success mb-3">Cadastrar Novo Aluno</a>
 
+    <div class="mb-3">
+        <label for="searchInput" class="form-label mb-0 me-2">Buscar por nome</label>
+        <form method="GET" action="students" class="d-flex align-items-center">
+            <input type="text" class="form-control me-2" id="searchInput" name="search" value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>" placeholder="Digite o nome..." />
+            <button type="submit" class="btn btn-primary">Buscar</button>
+            <a href="students" class="btn btn-secondary ms-2">Limpar</a>
+        </form>
+    </div>
+
+
     <?php if (empty($students)): ?>
         <p>Nenhum aluno encontrado.</p>
     <?php else: ?>

@@ -1,0 +1,16 @@
+RewriteEngine On
+
+# # Define a pasta base do projeto
+# RewriteBase /gestao_cursos_alunos
+
+# # Redireciona tudo para index.php, exceto arquivos e diretórios reais
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteCond %{REQUEST_FILENAME} !-d
+# RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+
+RewriteBase /gestao_cursos_alunos/
+
+# Redireciona tudo para index.php, exceto arquivos e diretórios reais
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]

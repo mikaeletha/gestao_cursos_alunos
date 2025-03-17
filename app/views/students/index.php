@@ -1,8 +1,6 @@
 <?php
 $pageTitle = "Alunos";
-include_once('../includes/header.php');
-
-echo "<p>Mensagem do Controller: $message</p>";
+include_once('./app/views/includes/header.php');
 
 if (isset($_GET['success']) && $_GET['success'] == 1): ?>
     <div class="alert alert-success" role="alert">
@@ -13,9 +11,8 @@ if (isset($_GET['success']) && $_GET['success'] == 1): ?>
 
 <div class="container mt-5">
     <h2>Lista de Alunos</h2>
-    <a href="user_create.php" class="btn btn-success mb-3">Cadastrar Novo Aluno</a>
-
-    <!-- Verifica se há alunos -->
+    <a href="students/create" class="btn btn-success mb-3">Cadastrar Novo Aluno</a>
+    
     <?php if (empty($students)): ?>
         <p>Nenhum aluno encontrado.</p>
     <?php else: ?>
@@ -51,5 +48,5 @@ if (isset($_GET['success']) && $_GET['success'] == 1): ?>
 
 <?php
 // Incluir o footer
-include('../includes/footer.php');
+include('./app/views/includes/footer.php');
 ?>

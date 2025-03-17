@@ -1,6 +1,6 @@
 <?php
 $pageTitle = "Cadastrar Aluno";
-include('../includes/header.php');
+include_once('./app/views/includes/header.php');
 ?>
 
 <?php if (isset($_GET['error'])): ?>
@@ -17,7 +17,7 @@ include('../includes/header.php');
 
 <div class="container mt-5">
     <h2>Cadastrar Aluno</h2>
-    <form method="POST" action="../controllers/StudentController.php">
+    <form method="POST" action="#">
         <div class="mb-3">
             <label for="name" class="form-label">Nome</label>
             <input type="text" class="form-control" id="name" name="name" minlength="3" required>
@@ -32,8 +32,8 @@ include('../includes/header.php');
         </div>
         <input type="hidden" name="action" value="store">
         <button type="submit" class="btn btn-primary">Cadastrar</button>
-        <a href="index.php" class="btn btn-secondary">Cancelar</a>
+        <a href="/gestao_cursos_alunos/students" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>
 
-<?php include('../includes/footer.php'); ?>
+<?php include('./app/views/includes/footer.php'); ?>

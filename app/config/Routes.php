@@ -8,6 +8,7 @@ require_once('./app/controllers/StudentsController.php');
 // Função para gerenciar o roteamento
 function handleRoute($url)
 {
+    $id = $_GET['id'] ?? null;
     switch ($url) {
         case '':
         case 'students':
@@ -20,25 +21,31 @@ function handleRoute($url)
             $controller->create();
             break;
 
-        // case 'students/store':
-        //     $controller = new StudentsController();
-        //     $controller->store();
-        //     break;
+        case 'students/store':
+            $controller = new StudentsController();
+            $controller->store();
+            break;
 
-        // case (preg_match('/students\/edit\/(\d+)/', $url, $matches) ? true : false):
-        //     $controller = new StudentsController();
-        //     $controller->edit($matches[1]);
-        //     break;
+        case (preg_match('/students\/edit\/(\d+)/', $url, $matches) ? true : false):
+            $controller = new StudentsController();
+            $controller->edit($matches[1]);
+            break;
 
-        // case (preg_match('/students\/update\/(\d+)/', $url, $matches) ? true : false):
-        //     $controller = new StudentsController();
-        //     $controller->update($matches[1]);
-        //     break;
+        case (preg_match('/students\/update\/(\d+)/', $url, $matches) ? true : false):
+            $controller = new StudentsController();
+            $controller->update($matches[1]);
+            break;
 
-        // case (preg_match('/students\/destroy\/(\d+)/', $url, $matches) ? true : false):
-        //     $controller = new StudentsController();
-        //     $controller->destroy($matches[1]);
-        //     break;
+        case 'students/destroy':
+            if ($id) {
+                $controller = new StudentsController();
+                $controller->destroy($id);
+            } else {
+                echo "ID do aluno não fornecido.";
+            }
+            break;
+
+
 
         // case 'classes':
         //     $controller = new ClassesController();
@@ -74,7 +81,7 @@ function handleRoute($url)
         //     // Se a URL não corresponder a nenhum caso, mostramos uma página de erro
         //     echo "Página não encontrada!";
         //     break;
-            default:
+        default:
             header("HTTP/1.0 404 Not Found");
             echo "Erro 404 - Página não encontrada!";
             break;

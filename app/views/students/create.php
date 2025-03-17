@@ -17,7 +17,7 @@ include_once('./app/views/includes/header.php');
 
 <div class="container mt-5">
     <h2>Cadastrar Aluno</h2>
-    <form method="POST" action="#">
+    <form method="POST" action="../students/store">
         <div class="mb-3">
             <label for="name" class="form-label">Nome</label>
             <input type="text" class="form-control" id="name" name="name" minlength="3" required>

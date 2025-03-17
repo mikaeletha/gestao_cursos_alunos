@@ -1,5 +1,6 @@
 <?php
-require_once('../models/Student.php');
+// require_once('../models/Student.php');
+require_once 'app/models/Student.php';
 
 
 $action = $_REQUEST['action'];

@@ -34,13 +34,15 @@ $isEditing = isset($classe);
                 minlength="3" required>
         </div>
         <div class="mb-3">
-        <label for="type" class="form-label">Modalidade</label><br>
+            <label for="type" class="form-label">Modalidade</label><br>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="type" id="presencial" value="presencial">
+                <input class="form-check-input" type="radio" name="type" id="presencial" value="presencial"
+                    <?= ($isEditing && $classe['type'] == 'presencial') ? 'checked' : ''; ?>>
                 <label class="form-check-label" for="presencial">Presencial</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="type" id="remoto" value="remoto">
+                <input class="form-check-input" type="radio" name="type" id="remoto" value="remoto"
+                    <?= ($isEditing && $classe['type'] == 'remoto') ? 'checked' : ''; ?>>
                 <label class="form-check-label" for="remoto">Remoto</label>
             </div>
         </div>

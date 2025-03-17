@@ -38,8 +38,7 @@ function handleRoute($url)
         
         case 'students/update':
                 $controller = new StudentsController();
-                $controller->update();
-           
+                $controller->update();           
             break;
 
         case 'students/destroy':
@@ -64,6 +63,19 @@ function handleRoute($url)
         case 'classes/store':
             $controller = new ClassesController();
             $controller->store();
+            break;
+        case 'classes/edit':
+            if ($id) {
+                $controller = new ClassesController();
+                $controller->edit($id);
+            } else {
+                echo "ID da turma não fornecido.";
+            }
+            break;
+        
+        case 'classes/update':
+                $controller = new ClassesController();
+                $controller->update();           
             break;
 
         // case 'enrollments':
@@ -90,33 +102,4 @@ function handleRoute($url)
             echo "Erro 404 - Página não encontrada!";
             break;
     }
-
-    // $url = trim($url, '/');
-
-    // // Definir as rotas
-    // if ($url == '' || $url == 'home') {
-    //     // Página inicial ou home
-    //     echo "Bem-vindo à página inicial!";
-    // } elseif ($url == 'alunos') {
-    //     $controller = new AlunoController();
-    //     $controller->index();
-    // } elseif ($url == 'alunos/create') {
-    //     $controller = new AlunoController();
-    //     $controller->create();
-    // } elseif ($url == 'alunos/store') {
-    //     $controller = new AlunoController();
-    //     $controller->store();
-    // } elseif (preg_match('/alunos\/edit\/(\d+)/', $url, $matches)) {
-    //     $controller = new AlunoController();
-    //     $controller->edit($matches[1]);
-    // } elseif ($url == 'turmas') {
-    //     $controller = new TurmaController();
-    //     $controller->index();
-    // } elseif ($url == 'matriculas') {
-    //     $controller = new MatriculaController();
-    //     $controller->index();
-    // } else {
-    //     // Caso não seja uma URL válida
-    //     echo "Página não encontrada!";
-    // }
 }

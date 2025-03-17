@@ -89,20 +89,21 @@ function handleRoute($url)
             }
             break;
 
-        // case 'enrollments':
-        //     $controller = new EnrollmentsController();
-        //     $controller->index();
-        //     break;
+        // ENROLLMENTS
+        case 'enrollments':
+            $controller = new EnrollmentsController();
+            $controller->index();
+            break;
 
-        // case 'enrollments/create':
-        //     $controller = new EnrollmentsController();
-        //     $controller->create();
-        //     break;
+        case 'enrollments/create':
+            $controller = new EnrollmentsController();
+            $controller->create();
+            break;
 
-        // case 'enrollments/store':
-        //     $controller = new EnrollmentsController();
-        //     $controller->store();
-        //     break;
+        case 'enrollments/store':
+            $controller = new EnrollmentsController();
+            $controller->store();
+            break;
 
         // default:
         //     // Se a URL não corresponder a nenhum caso, mostramos uma página de erro

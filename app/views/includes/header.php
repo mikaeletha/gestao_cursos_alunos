@@ -18,13 +18,13 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="students">Alunos</a>
+                        <a class="nav-link" href="/gestao_cursos_alunos/students">Alunos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="classes">Turmas</a>
+                        <a class="nav-link" href="/gestao_cursos_alunos/classes">Turmas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="enrollments">Matrícula</a>
+                        <a class="nav-link" href="/gestao_cursos_alunos/enrollments">Matrícula</a>
                     </li>
                 </ul>
             </div>

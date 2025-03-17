@@ -77,7 +77,7 @@ class Enrollment
 
     private function exists($student_id, $class_id)
     {
-        $sql = "SELECT COUNT(*) FROM enrollments WHERE (student_id = :student_id OR class_id = :class_id)";
+        $sql = "SELECT COUNT(*) FROM enrollments WHERE (student_id = :student_id AND class_id = :class_id)";
 
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':student_id', $student_id, PDO::PARAM_STR);

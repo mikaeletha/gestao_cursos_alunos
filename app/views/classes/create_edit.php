@@ -50,7 +50,7 @@ if (isset($_SESSION['message'])): ?>
 
 
         <button type="submit" class="btn btn-primary"><?= $isEditing ? "Atualizar" : "Cadastrar"; ?></button>
-        <a href="/gestao_cursos_turmas/students" class="btn btn-secondary">Cancelar</a>
+        <a href="/gestao_cursos_alunos/classes" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>
 

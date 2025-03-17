@@ -49,6 +49,7 @@ function handleRoute($url)
                 echo "ID do aluno não fornecido.";
             }
             break;
+
     // CLASSES
         case 'classes':
             $controller = new ClassesController();
@@ -64,6 +65,7 @@ function handleRoute($url)
             $controller = new ClassesController();
             $controller->store();
             break;
+
         case 'classes/edit':
             if ($id) {
                 $controller = new ClassesController();
@@ -76,6 +78,15 @@ function handleRoute($url)
         case 'classes/update':
                 $controller = new ClassesController();
                 $controller->update();           
+            break;
+
+        case 'classes/destroy':
+            if ($id) {
+                $controller = new ClassesController();
+                $controller->destroy($id);
+            } else {
+                echo "ID da turma não fornecido.";
+            }
             break;
 
         // case 'enrollments':

@@ -29,17 +29,17 @@ class ClassesController
 
         // if ($_SERVER["REQUEST_METHOD"] == "POST") {
         //     if ($this->model->existsByNameAndType($data['name'], $data['type'])) {
-        //         $_SESSION['message'] = ['type' => 'danger', 'text' => 'Erro ao turma aluno. Tente novamente.'];
-                
+        //         $this->setMessage('danger','Erro ao turma aluno. Tente novamente.');
+
         //         header("Location: ../students");
         //         exit();
         //     }
         // }
 
         if ($this->model->create($data)) {
-            $_SESSION['message'] = ['type' => 'success', 'text' => 'Turma casdrada com sucesso!'];
+            $this->setMessage('success','Turma casdrada com sucesso!');
         } else {
-            $_SESSION['message'] = ['type' => 'danger', 'text' => 'Erro ao cadastrar turma. Tente novamente.'];
+            $this->setMessage('danger','Erro ao cadastrar turma. Tente novamente.');
         }
 
         header("Location: ../classes");
@@ -66,17 +66,29 @@ class ClassesController
         ];
 
         if ($this->model->update($id, $data)) {
-            $_SESSION['message'] = ['type' => 'success', 'text' => 'Turma atualizado com sucesso!'];
+            $this->setMessage('success','Turma atualizado com sucesso!');
         } else {
-            $_SESSION['message'] = ['type' => 'danger', 'text' => 'Erro ao atualizar turma. Tente novamente.'];
+            $this->setMessage('danger','Erro ao atualizar turma. Tente novamente.');
         }
 
         header("Location: ../classes");
         exit();
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
-        
+        if ($this->model->delete($id)) {
+            $this->setMessage('success', 'Turma deletada com sucesso!');
+        } else {
+            $this->setMessage('danger', 'Erro ao deletar turma. Tente novamente.');
+        }
+
+        header("Location: ../classes");
+        exit();
+    }
+
+    public function setMessage($type, $text)
+    {
+        $_SESSION['message'] = ['type' => $type, 'text' => $text];
     }
 }
